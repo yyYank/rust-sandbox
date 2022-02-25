@@ -1,0 +1,10 @@
+[package]
+name = "cache-sample"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.4.3", features = ["ws"] }
+tokio = { version = "1.15.0", features = ["full"] }
+hyper = { version = "0.14.16", features = ["full"] }
+cached = "0.30.0"
