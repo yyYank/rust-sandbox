@@ -1,8 +1,9 @@
 use axum::Router;
 use axum::routing::get;
 use axum::extract;
-use cached::{async_mutex, Cached, UnboundCache};
+use cached::{Cached, UnboundCache};
 use cached::proc_macro::cached;
+use tokio::sync::MutexGuard;
 
 /*
 cached! {
@@ -36,7 +37,7 @@ async fn clear_cache(
     extract::Path(id) : extract::Path<String>
 ) -> String {
     {
-        let mut cache : async_mutex::MutexGuard<UnboundCache<String, String>>= TWICE_CACHE.lock().await;
+        let mut cache : MutexGuard<UnboundCache<String, String>>= TWICE_CACHE.lock().await;
         cache.cache_remove(&id);
     }
     return format!("{} cache clear has done", id);
